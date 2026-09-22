@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/jpeg" href="/download.jpeg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRIS - Train Schedule Planner</title>
+    <style>
+      #preloader {
+        position: fixed;
+        inset: 0;
+        background: #0b3d68;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        font-family: Arial, Helvetica, sans-serif;
+        transition: opacity 0.4s ease;
+      }
+      #preloader.hide {
+        opacity: 0;
+        pointer-events: none;
+      }
+      #preloader .logo {
+        display: block;
+        width: 161px;
+        height: 161px;
+        object-fit: contain;
+      }
+      #preloader .tagline {
+        margin-top: 10px;
+        color: #cfe0f0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 0.78rem;
+        letter-spacing: 0.05em;
+        opacity: 0;
+        animation: preloader-fade-in 0.6s ease-out 1.3s forwards;
+      }
+      @keyframes preloader-fade-in {
+        to { opacity: 1; }
+      }
+      #preloader .track {
+        position: relative;
+        width: 220px;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.15);
+        margin-top: 22px;
+        overflow: hidden;
+        border-radius: 2px;
+      }
+      #preloader .track-fill {
+        position: absolute;
+        top: 0;
+        left: -40%;
+        width: 40%;
+        height: 100%;
+        background: #f4c430;
+        animation: preloader-slide 1.3s ease-in-out infinite;
+      }
+      @keyframes preloader-slide {
+        0% { left: -40%; }
+        100% { left: 100%; }
+      }
+      #preloader .status {
+        margin-top: 12px;
+        color: #cfe0f0;
+        font-size: 0.72rem;
+        letter-spacing: 0.03em;
+        opacity: 0;
+        animation: preloader-fade-in 0.5s ease-out 1.6s forwards;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="preloader">
+      <img class="logo" src="/download.jpeg" alt="CRIS" />
+      <div class="tagline">CENTRE FOR RAILWAY INFORMATION SYSTEMS</div>
+      <div class="track"><div class="track-fill"></div></div>
+      <div class="status">Loading Train Schedule Planner&hellip;</div>
+    </div>
+
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
