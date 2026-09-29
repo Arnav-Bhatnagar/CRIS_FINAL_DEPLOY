@@ -19,7 +19,9 @@ const FIRST_DIGIT_BLACK = new Set(["3", "4", "9"]);
 function colorForTrainNo(trainNo) {
   const match = String(trainNo).match(/^\d+/);
   if (!match) return COLOR_FALLBACK;
-  const digits = match[0];
+  const digits = match[0]; 
+   
+
 
   if (PINK_PREFIXES.some((prefix) => digits.startsWith(prefix))) return COLOR_DEEP_PINK;
 
@@ -56,7 +58,7 @@ function formatClock(minsInDay) {
   return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
 }
 
-const WEEKDAY_NAMES = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+const WEEKDAY_NAMES = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 // Layout constants, in SVG pixels. The graph viewport grows from VIEWPORT_H to fill the window.
 const HEADER_H = 28;
@@ -142,7 +144,7 @@ function PdfPagesPreview({ blob, url }) {
 // Solid lines are the baseline schedule, dashed lines the proposed one.
 export default function ScheduleGraph({ routeData, schedules, proposedSchedules = [] }) {
   const [view, setView] = useState("week");
-  const [weekActivated, setWeekActivated] = useState(false);
+  const [weekActivated, setWeekActivated] = useState(true);
   const [dayIndex, setDayIndex] = useState(null);
   const [shift, setShift] = useState(1);
   const [shiftChecked, setShiftChecked] = useState(false);
@@ -278,7 +280,7 @@ export default function ScheduleGraph({ routeData, schedules, proposedSchedules 
   }
   function labelForDay(idx) {
     const weekday = WEEKDAY_NAMES[((idx % 7) + 7) % 7];
-    return usesDayColumn ? dayLabels[idx] ?? weekday : weekday;
+    return String(usesDayColumn ? dayLabels[idx] ?? weekday : weekday).slice(0, 3);
   }
 
   const trainList = useMemo(
@@ -977,7 +979,7 @@ export default function ScheduleGraph({ routeData, schedules, proposedSchedules 
           />
           Whole Week
         </label>
-        {weekActivated &&
+        {!weekActivated &&
           WEEKDAY_NAMES.map((name, i) => (
             <label key={name} className={`view-btn view-checkbox ${dayIndex === i ? "active" : ""}`}>
               <input
